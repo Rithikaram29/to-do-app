@@ -1,0 +1,156 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+}
+
+.app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #111827;
+  border-bottom: 1px solid #1f2933;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+button {
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+main {
+  padding: 1rem 2rem 2rem;
+  flex: 1;
+}
+
+.views {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.task-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.task-column {
+  background: #111827;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.task-column-inner {
+  min-height: 4rem;
+}
+
+.task-card {
+  background: #1f2937;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.priority-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.task-list {
+  background: #111827;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.task-filters {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.task-filters input,
+.task-filters select {
+  background: #111827;
+  border-radius: 6px;
+  border: 1px solid #374151;
+  color: #e5e7eb;
+  padding: 0.35rem 0.5rem;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal {
+  background: #020617;
+  border-radius: 10px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.field {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.field input,
+.field textarea,
+.field select {
+  background: #020617;
+  border-radius: 6px;
+  border: 1px solid #374151;
+  color: #e5e7eb;
+  padding: 0.4rem 0.5rem;
+}
+
+.transcript-box {
+  background: #020617;
+  border-radius: 6px;
+  border: 1px solid #374151;
+  padding: 0.5rem;
+  white-space: pre-wrap;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.mic-button.active {
+  background: #f97316;
+  color: #020617;
+}
