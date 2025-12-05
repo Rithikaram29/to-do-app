@@ -18,7 +18,7 @@ const STATUS_KEYWORDS: Record<string, TaskStatus> = {
   'to do': 'todo',
 };
 
-export function parseVoiceLocally(transcript: string): VoiceParsedTask {
+export function parseVoiceLocally(transcript: string): VoiceParsedTask {      /// TODO replace with api
   const lower = transcript.toLowerCase();
   let priority: TaskPriority | undefined;
   let status: TaskStatus = 'todo';

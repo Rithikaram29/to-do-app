@@ -1,5 +1,6 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { VoiceParsedTask } from "../types/task";
+// uiSlice.ts
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { VoiceParsedTask } from '../types/task';
 
 
 interface UiState {
@@ -36,6 +37,14 @@ const uiSlice = createSlice({
       state.voiceModalOpen = false;
       state.voiceDraft = null;
     },
+    // ✅ new
+    updateVoiceDraft(state, action: PayloadAction<Partial<VoiceParsedTask>>) {
+      if (!state.voiceDraft) return;
+      state.voiceDraft = {
+        ...state.voiceDraft,
+        ...action.payload,
+      };
+    },
   },
 });
 
@@ -44,6 +53,7 @@ export const {
   closeTaskForm,
   openVoiceModal,
   closeVoiceModal,
+  updateVoiceDraft,   
 } = uiSlice.actions;
 
 export default uiSlice.reducer;

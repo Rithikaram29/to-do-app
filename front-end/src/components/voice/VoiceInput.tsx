@@ -13,7 +13,8 @@ const VoiceInput: React.FC = () => {
   useEffect(() => {
     if (!listening && transcript) {
       // When recording stops and we have text, parse it
-      const parsed: VoiceParsedTask = parseVoiceLocally(transcript);
+      const parsed: VoiceParsedTask = parseVoiceLocally(transcript);  
+      console.log("locally_parsed_value:", parsed)     //TODO replace with ai
       dispatch(openVoiceModal(parsed));
       setTranscript('');
     }
