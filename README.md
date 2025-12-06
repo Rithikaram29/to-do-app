@@ -232,3 +232,41 @@ No change happens until user explicitly confirms.
 - OpenAI is stronger at structured JSON extraction
 - Voice interfaces need confirmation layers to avoid accidental deletes
 - Drag-and-drop with dnd-kit is extremely flexible
+
+
+## Folder Structure:
+
+to-do-app/
+│
+├── back-end/
+│   ├── src/
+│   │   ├── controllers/        # Route handlers (tasks, voice parsing)
+│   │   ├── routes/             # Express API route definitions
+│   │   ├── services/           # Voice parser service (OpenAI, Gemini)
+│   │   ├── utils/              # Helper utilities (date parser, STT normalization)
+│   │   ├── middleware/         # (Optional) Validation, logging, etc.
+│   │   └── models/             # Supabase interaction + data access
+│   │
+│   ├── package.json
+│   ├── .env
+│   └── .gitignore
+│
+├── front-end/
+│   ├── public/                 # Static assets
+│   ├── src/
+│   │   ├── api/                # Axios wrappers (task API, parser API)
+│   │   ├── components/
+│   │   │   ├── tasks/          # TaskBoard, TaskCard, TaskForm, TaskDetailsModal
+│   │   │   ├── voice/          # VoiceChatAssistant + UI
+│   │   │   └── layout/         # Header, AppLayout
+│   │   ├── hooks/              # useSpeechToText, custom hooks
+│   │   ├── store/              # Redux slices
+│   │   ├── styles/             # Tailwind global styles
+│   │   ├── types/              # TypeScript interfaces
+│   │   └── main.tsx            # React entry point
+│   │
+│   ├── package.json
+│   ├── tailwind.config.js
+│   └── .gitignore
+│
+└── README.md
