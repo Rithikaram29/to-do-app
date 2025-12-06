@@ -8,6 +8,7 @@ import VoiceReviewModal from "../voice/VoiceReviewModal";
 import { useAppDispatch } from "../../hooks/useRedux";
 import { setTasks } from "../../store/taskSlice";
 import { fetchTasks } from "../../api/taskApi";
+import VoiceChatAssistant from "../voice/VoiceChatAssistant";
 
 const AppLayout: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -27,20 +28,22 @@ const AppLayout: React.FC = () => {
     <div className="app-root">
       <Header />
       <main>
-        <TaskFilters />
+
         <section className="views">
           <div className="view">
-            <h2>Board View</h2>
+            <h2 className="font-bold">Board View</h2>
             <TaskBoard />
           </div>
           <div className="view">
-            <h2>List View</h2>
+            <h2 className="font-bold">List View</h2>
+            <TaskFilters />
             <TaskList />
           </div>
         </section>
       </main>
       <TaskForm />
       <VoiceReviewModal />
+       <VoiceChatAssistant />
     </div>
   );
 };

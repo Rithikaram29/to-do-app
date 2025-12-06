@@ -1,19 +1,20 @@
-import React from 'react';
-import type { Task } from '../../types/task';
+import React from "react";
+import type { Task } from "../../types/task";
 
 interface Props {
   task: Task;
   onClick?: () => void;
+  onDelete?: () => void;
 }
 
-const priorityColor: Record<Task['priority'], string> = {
-  low: '#8bc34a',
-  medium: '#ffeb3b',
-  high: '#ff9800',
-  critical: '#f44336',
+const priorityColor: Record<Task["priority"], string> = {
+  low: "#8bc34a",
+  medium: "#ffeb3b",
+  high: "#ff9800",
+  critical: "#f44336",
 };
 
-const TaskCard: React.FC<Props> = ({ task, onClick }) => {
+const TaskCard: React.FC<Props> = ({ task, onClick, onDelete }) => {
   return (
     <div className="task-card" onClick={onClick}>
       <div className="task-card-header">
@@ -28,6 +29,22 @@ const TaskCard: React.FC<Props> = ({ task, onClick }) => {
           Due: {new Date(task.dueDate).toLocaleString()}
         </div>
       )}
+
+{task.status === "done" && (
+  <button
+    className="task-delete-button border-2 border-black border-r-4 z-10"
+    onClick={(e) => {
+      e.stopPropagation();          
+      console.log("isClicked");
+      onDelete?.();
+    }}
+    onPointerDown={(e) => {
+      e.stopPropagation();
+    }}
+  >
+    Delete
+  </button>
+)}
     </div>
   );
 };

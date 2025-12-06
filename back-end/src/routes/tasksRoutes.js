@@ -16,11 +16,11 @@ const createTaskSchema = z.object({
   description: z.string().optional(),
   status: z.enum(['todo', 'in_progress', 'done']).optional(),
   priority: z.enum(['low', 'medium', 'high', 'critical']).optional(),
-  dueDate: z.string().datetime().optional(),
+  dueDate: z.string().optional(),
 });
 
 const updateTaskSchema = createTaskSchema.partial().extend({
-  dueDate: z.string().datetime().nullable().optional(),
+  dueDate: z.string().nullable().optional(),
 });
 
 router.get('/', getTasksHandler);

@@ -1,5 +1,5 @@
-export type TaskStatus = 'todo' | 'in_progress' | 'done';
-export type TaskPriority = 'low' | 'medium' | 'high' | 'critical';
+export type TaskStatus = "todo" | "in_progress" | "done";
+export type TaskPriority = "low" | "medium" | "high" | "critical";
 
 export interface Task {
   id: string;
@@ -18,4 +18,18 @@ export interface VoiceParsedTask {
   dueDate?: string;
   priority?: TaskPriority;
   status: TaskStatus;
+}
+
+export interface ChatVoiceParsedTask {
+  status:boolean,
+  raw: contentJson | string;
+}
+
+export interface contentJson {
+    action: string;
+    taskName: string;
+    fieldToUpdate: string;
+    newValue: string;
+    confirmed: string;
+  
 }

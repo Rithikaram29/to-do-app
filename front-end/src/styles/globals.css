@@ -1,8 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f3f4f6; /* light gray */
+  color: #111827; /* near-black text */
 }
 
 .app-root {
@@ -16,8 +20,8 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: #111827;
-  border-bottom: 1px solid #1f2933;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .header-actions {
@@ -29,8 +33,16 @@ body {
 button {
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 6px;
+  border-radius: 999px;
   cursor: pointer;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 0.85rem;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
 }
 
 main {
@@ -52,20 +64,27 @@ main {
 }
 
 .task-column {
-  background: #111827;
-  border-radius: 8px;
-  padding: 0.5rem;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .task-column-inner {
-  min-height: 4rem;
+  flex: 1;
+  min-height: 0;
 }
 
 .task-card {
-  background: #1f2937;
-  border-radius: 8px;
+  background: #f9fafb;
+  border-radius: 0.75rem;
   padding: 0.5rem 0.75rem;
   margin-bottom: 0.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
 }
 
 .task-card-header {
@@ -81,9 +100,10 @@ main {
 }
 
 .task-list {
-  background: #111827;
-  border-radius: 8px;
-  padding: 0.5rem;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem;
 }
 
 .task-filters {
@@ -94,17 +114,29 @@ main {
 
 .task-filters input,
 .task-filters select {
-  background: #111827;
-  border-radius: 6px;
-  border: 1px solid #374151;
-  color: #e5e7eb;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  color: #111827;
   padding: 0.35rem 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .task-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .task-filters input,
+  .task-filters select {
+    width: 100%;
+  }
 }
 
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(15, 23, 42, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,11 +144,12 @@ main {
 }
 
 .modal {
-  background: #020617;
-  border-radius: 10px;
+  background: #ffffff;
+  border-radius: 0.75rem;
   padding: 1.5rem;
   width: 100%;
   max-width: 480px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
 }
 
 .field {
@@ -129,17 +162,17 @@ main {
 .field input,
 .field textarea,
 .field select {
-  background: #020617;
-  border-radius: 6px;
-  border: 1px solid #374151;
-  color: #e5e7eb;
+  background: #ffffff;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  color: #111827;
   padding: 0.4rem 0.5rem;
 }
 
 .transcript-box {
-  background: #020617;
-  border-radius: 6px;
-  border: 1px solid #374151;
+  background: #f9fafb;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
   padding: 0.5rem;
   white-space: pre-wrap;
 }
@@ -152,7 +185,7 @@ main {
 
 .mic-button.active {
   background: #f97316;
-  color: #020617;
+  color: #ffffff;
 }
 
 .parser-selector {
@@ -170,9 +203,9 @@ main {
 }
 
 .parser-chip {
-  background: #111827;
+  background: #ffffff;
   border-radius: 999px;
-  border: 1px solid #374151;
+  border: 1px solid #e5e7eb;
   padding: 0.4rem 0.8rem;
   display: flex;
   flex-direction: column;
@@ -181,8 +214,8 @@ main {
 }
 
 .parser-chip--active {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 1px #3b82f6;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.6);
 }
 
 .parser-chip-title {
@@ -193,4 +226,42 @@ main {
 .parser-chip-desc {
   font-size: 0.7rem;
   opacity: 0.7;
+}
+
+.voice-chat-assistant {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  width: 320px;
+  max-height: 60vh;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+}
+
+.voice-chat-header {
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.voice-chat-messages {
+  font-size: 0.8rem;
+  padding: 0.5rem 0;
+}
+
+.voice-chat-message {
+  margin-bottom: 0.35rem;
+}
+
+.voice-chat-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e5e7eb;
 }

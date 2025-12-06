@@ -1,5 +1,5 @@
 import { apiClient } from './client';
-import type { Task, VoiceParsedTask } from '../types/task';
+import type { ChatVoiceParsedTask, Task } from '../types/task';
 
 export const fetchTasks = async (): Promise<Task[]> => {
   const res = await apiClient.get('/tasks');
@@ -23,9 +23,13 @@ export const deleteTaskApi = async (id: string): Promise<void> => {
   await apiClient.delete(`/tasks/${id}`);
 };
 
-export const parseVoiceApi = async (
-  transcript: string
-): Promise<VoiceParsedTask> => {
-  const res = await apiClient.post('/voice/parse', { transcript });
+export const parseVoiceApi = async ({transcript, parserId}:
+  {transcript: string,
+  parserId: string}
+): Promise<ChatVoiceParsedTask> => {
+  const res = await apiClient.post('/voice/parse', {
+    parserId,
+    transcript,
+  });
   return res.data;
 };

@@ -4,8 +4,8 @@ import { useSelector } from "react-redux";
 import TaskColumn from "./TaskColumn";
 import type { TaskStatus } from "../../types/task";
 import { useAppDispatch } from "../../hooks/useRedux";
-import { moveTask } from "../../store/taskSlice";
-import { updateTaskApi } from "../../api/taskApi"; // 👈 NEW IMPORT
+import { moveTask, setTasks } from "../../store/taskSlice";
+import { updateTaskApi, deleteTaskApi, fetchTasks } from "../../api/taskApi"; // 👈 add deleteTaskApi
 
 const TaskBoard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -23,17 +23,30 @@ const TaskBoard: React.FC = () => {
     if (!currentTask || currentTask.status === newStatus) return;
 
     try {
-      // 2️⃣ Then update local Redux state so UI moves the card
+      // First update local Redux state so UI moves the card
       dispatch(
         moveTask({
           id: taskId,
           status: newStatus,
-        })
+        }),
       );
-      // 1️⃣ Update in backend (Supabase via your API)
+      // Then update in backend
       await updateTaskApi(taskId, { status: newStatus });
     } catch (err) {
       console.error("Failed to update task status on drag:", err);
+    }
+  };
+
+  // 👇 NEW: delete handler used by the Delete button on done cards
+  const handleDeleteTask = async (taskId: string) => {
+    console.log("triggering delete task")
+    try {
+      await deleteTaskApi(taskId);
+
+      const latestTasks = await fetchTasks();
+      dispatch(setTasks(latestTasks));
+    } catch (err) {
+      console.error("Failed to delete task:", err);
     }
   };
 
@@ -44,16 +57,19 @@ const TaskBoard: React.FC = () => {
           status="todo"
           title="To Do"
           tasks={tasks.filter((t: any) => t.status === "todo")}
+          onDeleteTask={handleDeleteTask} // 👈 pass handler
         />
         <TaskColumn
           status="in_progress"
           title="In Progress"
           tasks={tasks.filter((t: any) => t.status === "in_progress")}
+          onDeleteTask={handleDeleteTask} // 👈 pass handler
         />
         <TaskColumn
           status="done"
           title="Done"
           tasks={tasks.filter((t: any) => t.status === "done")}
+          onDeleteTask={handleDeleteTask} // 👈 pass handler
         />
       </div>
     </DndContext>
