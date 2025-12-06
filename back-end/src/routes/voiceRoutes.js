@@ -1,6 +1,6 @@
 const express = require('express');
 const { z } = require('zod');
-const { validateBody } = require('../middleware/validateRequest');
+const { validateBody } = require('../middleware/validateRequesst.js');
 const { parseVoiceHandler } = require('../controllers/voiceController');
 
 const router = express.Router();

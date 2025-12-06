@@ -1,5 +1,5 @@
 import { apiClient } from './client';
-import { Task, VoiceParsedTask } from '../types/task';
+import type { Task, VoiceParsedTask } from '../types/task';
 
 export const fetchTasks = async (): Promise<Task[]> => {
   const res = await apiClient.get('/tasks');

@@ -6,18 +6,18 @@ const {
   deleteTask,
 } = require('../services/tasksService');
 
-function getTasksHandler(req, res, next) {
+async function getTasksHandler(req, res, next) {
   try {
-    const tasks = getAllTasks();
+    const tasks = await getAllTasks();
     res.json(tasks);
   } catch (err) {
     next(err);
   }
 }
 
-function getTaskByIdHandler(req, res, next) {
+async function getTaskByIdHandler(req, res, next) {
   try {
-    const task = getTaskById(req.params.id);
+    const task = await getTaskById(req.params.id);
     if (!task) return res.status(404).json({ error: 'Task not found' });
     res.json(task);
   } catch (err) {
@@ -25,18 +25,18 @@ function getTaskByIdHandler(req, res, next) {
   }
 }
 
-function createTaskHandler(req, res, next) {
+async function createTaskHandler(req, res, next) {
   try {
-    const task = createTask(req.body);
+    const task = await createTask(req.body);
     res.status(201).json(task);
   } catch (err) {
     next(err);
   }
 }
 
-function updateTaskHandler(req, res, next) {
+async function updateTaskHandler(req, res, next) {
   try {
-    const updated = updateTask(req.params.id, req.body);
+    const updated = await updateTask(req.params.id, req.body);
     if (!updated) return res.status(404).json({ error: 'Task not found' });
     res.json(updated);
   } catch (err) {
@@ -44,9 +44,9 @@ function updateTaskHandler(req, res, next) {
   }
 }
 
-function deleteTaskHandler(req, res, next) {
+async function deleteTaskHandler(req, res, next) {
   try {
-    const ok = deleteTask(req.params.id);
+    const ok = await deleteTask(req.params.id);
     if (!ok) return res.status(404).json({ error: 'Task not found' });
     res.status(204).send();
   } catch (err) {

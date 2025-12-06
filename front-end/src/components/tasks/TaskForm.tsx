@@ -3,7 +3,12 @@ import { useSelector } from 'react-redux';
 import { closeTaskForm } from '../../store/uiSlice';
 import { useAppDispatch } from '../../hooks/useRedux';
 import type { TaskPriority, TaskStatus } from '../../types/task';
-import { createTask, updateTask } from '../../store/taskSlice';
+import { setTasks } from '../../store/taskSlice';
+import {
+  createTaskApi,
+  updateTaskApi,
+  fetchTasks,
+} from '../../api/taskApi';
 
 const TaskForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -12,7 +17,7 @@ const TaskForm: React.FC = () => {
   );
   const tasks = useSelector((state: any) => state.tasks.items);
 
-  const editingTask = tasks.find((t) => t.id === editingTaskId);
+  const editingTask = tasks.find((t: any) => t.id === editingTaskId);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -42,33 +47,36 @@ const TaskForm: React.FC = () => {
 
   const onClose = () => dispatch(closeTaskForm());
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim()) return;
 
-    if (editingTask) {
-      dispatch(
-        updateTask({
-          id: editingTask.id,
-          changes: {
-            title,
-            description,
-            status,
-            priority,
-            dueDate: dueDate ? new Date(dueDate).toISOString() : undefined,
-          },
-        })
-      );
-    } else {
-      dispatch(
-        createTask({
+    try {
+      if (editingTask) {
+        // UPDATE via backend (Supabase)
+        await updateTaskApi(editingTask.id, {
           title,
           description,
           status,
           priority,
           dueDate: dueDate ? new Date(dueDate).toISOString() : undefined,
-        })
-      );
+        });
+      } else {
+        // CREATE via backend (Supabase)
+        await createTaskApi({
+          title,
+          description,
+          status,
+          priority,
+          dueDate: dueDate ? new Date(dueDate).toISOString() : undefined,
+        });
+      }
+
+      // After saving, fetch fresh tasks from backend and hydrate Redux
+      const latestTasks = await fetchTasks();
+      dispatch(setTasks(latestTasks));
+    } catch (err) {
+      console.error('Failed to save task:', err);
     }
 
     dispatch(closeTaskForm());
